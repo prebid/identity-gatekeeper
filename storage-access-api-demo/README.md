@@ -23,6 +23,10 @@ cd SharedId && http-server -p 8888 &
    - CNN (http://www.cnn.com:8181/) 
    - WP (http://www.wp.com:8282) 
    - SharedId (http://sharedid.com:8888) 
+   
+   To test, create/update the cookie (sharedId) on http://sharedid.com:8888 first and the same id will reflect in other publisher page.
+   The id can be updated from any publisher then on.
+   To set the cookies same as the sharedId.com on CNN publisher, use http://www.cnn.com:8181/readcookie.html
 
 4. CNN:
    - index.html : Test storage access on SharedId.com by updating the cookie value.
@@ -36,9 +40,9 @@ cd SharedId && http-server -p 8888 &
     - default.html: To set cookie value
     - optout.html: Optout from sharedId
     - postcookie.html: Posts the sharedId cookie value via postmessage (embedded within iframe from publisher)
-    - sandboxed.html: set/update the cookie value (embedded within iframe from publisher)
+    - sandboxed.html: set/update the cookie value (embedded within iframe from publisher).
 
-4. clean up
+7. clean up
 
 ```
 ps aux | grep [h]ttp-server
