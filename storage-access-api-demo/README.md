@@ -20,22 +20,22 @@ cd SharedId && http-server -p 8888 &
 ```
 
 3. load publishers and sharedId on broswer
-   CNN (http://www.cnn.com:8181/) 
-   WP (http://www.wp.com:8282) 
-   SharedId (http://sharedid.com:8888) 
+   - CNN (http://www.cnn.com:8181/) 
+   - WP (http://www.wp.com:8282) 
+   - SharedId (http://sharedid.com:8888) 
 
 4. CNN:
-   index.html : To test storage access from SharedId
-   readcookie.html : Gets SharedId using postmessage
+   - index.html : To test storage access from SharedId
+   - readcookie.html : Gets SharedId using postmessage
  
 5. WP:
-   index.html : To test storage access from SharedId
+   - index.html : To test storage access from SharedId
 
 6. SharedId
-    default.html: To set cookie value
-    optout.html: Optout from sharedId
-    postcookie.html: Post the sharedId cookie value via postmessage (embedded within iframe from publisher)
-    sandboxed.html: set/update the cookie value (embedded within iframe from publisher)
+    - default.html: To set cookie value
+    - optout.html: Optout from sharedId
+    - postcookie.html: Post the sharedId cookie value via postmessage (embedded within iframe from publisher)
+    - sandboxed.html: set/update the cookie value (embedded within iframe from publisher)
 
 4. clean up
 
