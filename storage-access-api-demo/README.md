@@ -26,13 +26,14 @@ cd SharedId && http-server -p 8888 &
    
    To test, create/update the cookie (sharedId) on http://sharedid.com:8888 first and the same id will reflect in other publisher page.
    The id can be updated from any publisher then on.
-   To set the cookies same as the sharedId.com on CNN publisher, use http://www.cnn.com:8181/readcookie.html
+   To set the cookies same as the sharedId.com on CNN publisher, use http://www.cnn.com:8181/readcookie.html 
 
 4. CNN:
    - index.html : Test storage access on SharedId.com by updating the cookie value.
    - readcookie.html : Gets SharedId using postmessage and creates a new cookie/updates on the CNN domain (CNN cookie value is same as SharedID.com) .
-                       The delete button, enables to delete the cookie on CNN domain.  
- 
+                       The delete button, enables to delete the cookie on CNN domain and creates a new cookie "optout". 
+                       To opt-in again, for now the "optout" cookie has to be deleted manually.
+                       
 5. WP:
    - index.html : Test storage access on SharedId.com by updating the cookie value.
 
