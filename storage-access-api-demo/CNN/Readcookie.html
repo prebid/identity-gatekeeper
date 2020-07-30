@@ -2,27 +2,63 @@
 <html>
   <head>
     <title>CNN</title>
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <link rel="stylesheet" href="parent-frame.css">
   </head>
   <body>
-    <main class="pure-g">
-      <header class="pure-u-1">
+    <main>
+      <header>
         <h1>CNN</h1>
+        <p>The publisher page reads cookie from sharedId.com and sets new cookie on this domain with the sharedId.com cookie value</p>
       </header>
-      <section class="pure-u-1">
-        <p>Current SharedId Received via post message: <span id="sharedId"></span></p>
+      <section >
+        <p>Current SharedId Received via post message: <span id="sharedId" style="color:blue;font-weight:bold"></span></p>
       </section>
-      <section class="pure-u-sm-1-2">
+      <section >
         <iframe src="http://sharedid.com:8888/postCookie.html" sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin"></iframe>
+      </section>
+      <section>
+        <p>Delete the "sharedId" cookie from this domain</p><button id="del" onclick="deleteCookie()">Delete</button>
       </section>
     </main>
   </body>
   <script>
+    function deleteCookie() {
+      setCookie("optout", "true");
+      document.cookie = "sharedId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+    }
+
+    function getCookie(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+
+    function setCookie(cname, cvalue) {
+      var d = new Date();
+      d.setTime(d.getTime() + (28*24*60*60*1000));
+      var expires = "expires="+ d.toUTCString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
 
     function handlePostMessage(event) {
      var sharedId = document.getElementById('sharedId');
       sharedId.innerText = event.data.data;
+      var isOptout = getCookie("optout");
+      if(isOptout == "") {
+        setCookie("sharedId", event.data.data);
+      }
     }
 
     function init() {
