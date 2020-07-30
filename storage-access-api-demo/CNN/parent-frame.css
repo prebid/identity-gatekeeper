@@ -1,0 +1,11 @@
+iframe {
+  width: 100%;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-height: 160px;
+}
+
+body {
+  padding: 20px 40px;
+}

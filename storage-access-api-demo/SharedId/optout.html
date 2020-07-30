@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Opting Out</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script src="http://wzrd.in/standalone/uuid@latest"></script>
+  </head>
+  <body>
+    <main class="pure-g">
+      <header class="pure-u-1">
+        <h3>Opting Out: Setting cookie to 00000000000000000000000000</h3>
+      </header>
+
+    </main>
+
+    <script type="text/javascript">
+
+      function setCookie() {
+        Cookies.defaults = {
+          expires: 365,
+          path: '',
+          domain: window.location.hostname.split('.').slice(-2).join('.'),
+        };
+
+        var key = 'sharedId';
+
+        Cookies.set(key, "00000000000000000000000000");
+      }
+      // Check the cookie on page load
+      window.onload = setCookie;
+
+    </script>
+  </body>
+</html>
