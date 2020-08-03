@@ -101,3 +101,11 @@ function onReady() {
 }
 
 ready(onReady)
+
+function optout() {
+  var key = 'sharedId';
+  var optOutValue = "00000000000000000000000000"
+
+  Cookies.set(key, optOutValue);
+  init();
+}

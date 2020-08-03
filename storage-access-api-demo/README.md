@@ -31,16 +31,14 @@ cd SharedId && http-server -p 8888 &
 
 4. CNN:
    - index.html : Test storage access on SharedId.com by updating the cookie value.
-   - readcookie.html : Gets SharedId using postmessage and creates a new cookie/updates on the CNN domain (CNN cookie value is same as SharedID.com) .
-                       The delete button, enables to delete the cookie on CNN domain and creates a new cookie "optout". 
-                       To opt-in again, for now the "optout" cookie has to be deleted manually.
+   - readcookie.html : Gets SharedId using postmessage and creates a new cookie/updates on the CNN domain (CNN cookie value is same as SharedID.com).
+                 
                        
 5. WP:
    - index.html : Test storage access on SharedId.com by updating the cookie value.
 
 6. SharedId
     - default.html: To set cookie value
-    - optout.html: Optout from sharedId
     - postcookie.html: Posts the sharedId cookie value via postmessage (embedded within iframe from publisher)
     - sandboxed.html: set/update the cookie value (embedded within iframe from publisher).
 
