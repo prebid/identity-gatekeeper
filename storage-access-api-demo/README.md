@@ -1,5 +1,5 @@
 # Storage Access API Demo
-*In safari 13.1.2 and above prevent cross site tracking must be disabled in Preferences -> Privacy -> Web tracking
+*In safari 13.1.2 and above prevent cross site tracking must be disabled in Preferences -> Privacy -> Web tracking*
 
 ## Usage
 
