@@ -53,7 +53,8 @@ function onUpdated(event) {
 
 function updateId() {
   var key = 'sharedId';
-  var newId = uuid.v4();
+  var newId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);  //uuid.v4();
+
   Cookies.set(key, newId);
   var data = Cookies.get(key) || '(none)';
   var updateEvent = new CustomEvent('sharedId:updated', {

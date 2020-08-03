@@ -2,19 +2,15 @@
 <html>
   <head>
     <title>Washington Post</title>
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
     <link rel="stylesheet" href="parent-frame.css">
   </head>
   <body>
-    <main class="pure-g">
-      <header class="pure-u-1">
+    <main>
+      <header >
         <h1>Washington Post</h1>
         <p>The publisher page updates the sharedId cookie value on SharedId.com </p>
       </header>
-      <section class="pure-u-sm-1-2">
-        <iframe src="http://sharedid:8888/default.html"></iframe>
-      </section>
-      <section class="pure-u-sm-1-2">
+      <section>
         <iframe src="http://sharedid.com:8888/sandboxed.html" sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin"></iframe>
       </section>
     </main>
