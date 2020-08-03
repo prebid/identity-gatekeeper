@@ -20,27 +20,31 @@ cd WP && http-server -p 8282 &
 cd SharedId && http-server -p 8888 &
 ```
 
-3. load publishers and sharedId on broswer
+3. load the following publishers and sharedId in a Safari or FireFox broswer, beginning with SharedId.com
+   - SharedId (http://sharedid.com:8888) 
    - CNN (http://www.cnn.com:8181/) 
    - WP (http://www.wp.com:8282) 
-   - SharedId (http://sharedid.com:8888) 
+  
    
-   To test, create/update the cookie (sharedId) on http://sharedid.com:8888 first and the same id will reflect in other publisher page.
-   The id can be updated from any publisher then on.
-   To set the cookies same as the sharedId.com on CNN publisher, use http://www.cnn.com:8181/readcookie.html 
+   You should see an alphanumeric string as your "Current ID".  That string should be the same across all three domains. 
+   The id can be updated from any publisher, the id will be synced across the other domains when updated. 
 
-4. CNN:
-   - index.html : Test storage access on SharedId.com by updating the cookie value.
-   - readcookie.html : Gets SharedId using postmessage and creates a new cookie/updates on the CNN domain (CNN cookie value is same as SharedID.com).
-                 
+4. To test the storage access api, we need to see one domain update the cookie of a second domain.  The storage access api allows this once a browser has interacted with both domains in a first party context. 
+
+From CNN:
+   - http://www.cnn.com:8181 : Click the "Update Id" button. Refresh http://www.wp.com:8282 and note that the ids are synced.  
                        
-5. WP:
-   - index.html : Test storage access on SharedId.com by updating the cookie value.
-
-6. SharedId
+From SharedId:
     - default.html: To set cookie value
+    - optout.html: Optout from sharedId
     - postcookie.html: Posts the sharedId cookie value via postmessage (embedded within iframe from publisher)
     - sandboxed.html: set/update the cookie value (embedded within iframe from publisher).
+
+5. OptOut, signaling between domains that a user has opted out, is an essential concept that must be supported. The final step in this demo is persisting optout between sharedId.com where a user may optout and cnn.com and wp.com. 
+
+-to begin navigate to http://sharedid.com:8888/default.html
+-next, click the "Opt-out" button. note your Current ID value
+-next, navigate to http://www.cnn.com:8181 and refresh the page. Note your Current ID value
 
 7. clean up
 
