@@ -42,9 +42,9 @@ From SharedId:
 
 5. OptOut, signaling between domains that a user has opted out, is an essential concept that must be supported. The final step in this demo is persisting optout between sharedId.com where a user may optout and cnn.com and wp.com. 
 
--to begin navigate to http://sharedid.com:8888/default.html
--next, click the "Opt-out" button. note your Current ID value
--next, navigate to http://www.cnn.com:8181 and refresh the page. Note your Current ID value
+* to begin navigate to http://sharedid.com:8888/default.html
+* next, click the "Opt-out" button. note your Current ID value
+* next, navigate to http://www.cnn.com:8181 and refresh the page. Note your Current ID value
 
 7. clean up
 
