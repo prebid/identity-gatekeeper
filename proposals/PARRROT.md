@@ -49,8 +49,11 @@ Likewise, to prevent leakage of contextual info in cases where the interest grou
 
 ## Diagrams
 ### Sequence Diagram
+![Sequence Diagram](https://user-images.githubusercontent.com/14223042/94969914-c7f6bc00-04c0-11eb-8f1b-97d62b75e317.png)
 
 ### Interaction Diagram
+![PARRROT_Flow](https://user-images.githubusercontent.com/14223042/94969915-c88f5280-04c0-11eb-95be-c88b700f41ca.png)
+
 
 1. Publisher deploys some custom JS to their page to control ad serving (much like prebid.js)
 2. Custom javascript initiates contextual requests from multiple SSPs including contextual info and first party ids (as happens today)
