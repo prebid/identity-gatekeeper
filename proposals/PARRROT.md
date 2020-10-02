@@ -3,7 +3,7 @@
 ## Introduction
 Dove Key improves TURTLEDOVE so that interest group ads can be updated in real time and ad quality controls can be respected. While there are still some outstanding questions about its feasibility we think its a step in the right direction.
 
-If adopted and concern about scale resolved, the main outstanding issue with TURTLEDOVE would be browser control of the auction.
+If adopted and concerns about scale resolved, the main outstanding issue with TURTLEDOVE would be browser control of the auction.
 
 A programmatic auction for any given ad impression must consider many more factors than bid price.  Within the publisher/SSP set up there exists a long list of potentially contributing factors: domain, creative or buyer blocks, prioritization, buying models, pacing, whether or not the impression is eligible for a Deal and if so how that Deal affects the relevance of bid price, regional factors, day parting, targeting, custom parameters; this list can be quite extensive and vary quite a bit pub by pub and impression by impression.  As such, we think TURTLEDOVE could be improved further by allowing the Publisher to retain control of the auction. In fact this is imperative for the reasons listed here.
 
