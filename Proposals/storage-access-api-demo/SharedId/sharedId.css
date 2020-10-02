@@ -1,0 +1,32 @@
+iframe {
+  width: 100%;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-height: 160px;
+}
+
+body {
+  padding: 20px 40px;
+}
+
+button {
+  padding: 15px 25px;
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+button:hover {background-color: #3e8e41}
+
+button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SharedId</title>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <link rel="stylesheet" href="sharedId.css">
+  </head>
+  <body>
+    <main>
+      <header>
+        <h3>SharedId</h3>
+      </header>
+      <section >
+        <p>Current ID: <span id="sharedId" style="color:blue;font-weight:bold">(click button to update)</span></p>
+      </section>
+      <section>
+        <button id="test" class="pure-button pure-button-primary">Test Storage Access API</button>
+        <button id="optOut" class="pure-button pure-button-primary" onclick="optout()">Opt-out</button>
+
+      </section>
+
+    </main>
+    <script src="sandbox.js"></script>
+  </body>
+</html>
