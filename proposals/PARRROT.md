@@ -1,7 +1,9 @@
 # PARRROT: The Publisher Auction Responsibility Retention Revision of TurtleDove
 
 ## Introduction
-Dove Key improves TURTLEDOVE so that interest group ads can be updated in real time and ad quality controls can be respected. While there are still some outstanding questions about its feasibility we think its a step in the right direction.
+Google recently released a new proposal named [DoveKey](https://github.com/google/rtb-experimental/tree/master/proposals/dovekey) which "simplifies the bidding and auction aspects of TURTLEDOVE by introducing a third-party KEY-value server."
+
+DoveKey improves [TURTLEDOVE](https://github.com/WICG/turtledove/) so that interest group ads can be updated in real time and ad quality controls can be respected. While there are still some outstanding questions about its feasibility we think its a step in the right direction.
 
 If adopted and concerns about scale resolved, the main outstanding issue with TURTLEDOVE would be browser control of the auction.
 
@@ -90,7 +92,7 @@ In TURTLEDOVE, the browser controls the auction. Details have not been completel
 
 ### TERN
 
-Tern expands on TURTLEDOVE to add more details missing from the original proposal, including:
+[TERN](https://github.com/AdRoll/TERN) expands on TURTLEDOVE to add more details missing from the original proposal, including:
 
 #### In-advance creative approval
 Any viable proposal needs to support a mechanism for creative approval. TERN suggests SSPs can approve or deny a creative as submitted by the DSP. PARRROT allows for creative approval when the DSP provides the creative to the SSP for distribution into a DoveKey store, allowing SSP to enable very granular publisher control over which creatives can serve where on their properties.
@@ -115,7 +117,7 @@ TERN proposes supporting reporting to third parties. PARRROT could be expanded t
 DoveKey modifies key aspects of TURTLEDOVE and Sparrow, including modifications to the sparrow gatekeeper, and where interest group bids are cached. It still assumes that the final auction is run by the browser, which we believe should be run by the publisher. 
 
 ### Sparrow
-Sparrow modifies TURTLEDOVE by bringing several functions out of the browser and onto a trusted server. Those functions are:
+[Sparrow](https://github.com/WICG/sparrow/) modifies TURTLEDOVE by bringing several functions out of the browser and onto a trusted server. Those functions are:
 
 #### Interest group bid caching
 TURTLEDOVE intends for bids to be cached client side, no guidance was given on the rate at which they could be updated, the assumption has been that bids could not be modified often enough to suit marketers. Within Sparrow the bids themselves would be cached on the gatekeeper.
