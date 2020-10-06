@@ -114,7 +114,7 @@ TERN proposes supporting reporting to third parties. PARRROT could be expanded t
 
 ### DoveKey
 
-DoveKey modifies key aspects of TURTLEDOVE and Sparrow, including modifications to the sparrow gatekeeper, and where interest group bids are cached. It still assumes that the final auction is run by the browser, which we believe should be run by the publisher. 
+[DoveKey](https://github.com/google/rtb-experimental/tree/master/proposals/dovekey) modifies key aspects of TURTLEDOVE and Sparrow, including modifications to the sparrow gatekeeper, and where interest group bids are cached. It still assumes that the final auction is run by the browser, which we believe should be run by the publisher. 
 
 ### Sparrow
 [Sparrow](https://github.com/WICG/sparrow/) modifies TURTLEDOVE by bringing several functions out of the browser and onto a trusted server. Those functions are:
