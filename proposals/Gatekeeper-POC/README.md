@@ -4,7 +4,7 @@ The Gatekeeper proposal can be found [here](https://github.com/MagniteEngineerin
 
 The chrome extension is currently using the cohort endpoint deployed in AWS.
 To use the AWS deployed cohort endpoint in chrome extension, please follow the instruction from 
-[here](/GatekeeperChromeExt/README.md) 
+/GatekeeperChromeExt/README.md 
 
 To have a custom/local endpoint, please follow the following steps.
 
