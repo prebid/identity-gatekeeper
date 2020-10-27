@@ -1,11 +1,6 @@
 # PARRROT: The Publisher Auction Responsibility Retention Revision of TurtleDove
 
 ## Introduction
-Google recently released a new proposal named [DoveKey](https://github.com/google/rtb-experimental/tree/master/proposals/dovekey) which "simplifies the bidding and auction aspects of TURTLEDOVE by introducing a third-party KEY-value server."
-
-DoveKey improves [TURTLEDOVE](https://github.com/WICG/turtledove/) so that interest group ads can be updated in real time and ad quality controls can be respected. While there are still some outstanding questions about its feasibility we think its a step in the right direction.
-
-If adopted and concerns about scale resolved, the main outstanding issue with TURTLEDOVE would be browser control of the auction.
 
 A programmatic auction for any given ad impression must consider many more factors than bid price.  Within the publisher/SSP set up there exists a long list of potentially contributing factors: domain, creative or buyer blocks, prioritization, buying models, pacing, whether or not the impression is eligible for a Deal and if so how that Deal affects the relevance of bid price, regional factors, day parting, targeting, custom parameters; this list can be quite extensive and vary quite a bit pub by pub and impression by impression.  As such, we think TURTLEDOVE could be improved further by allowing the Publisher to retain control of the auction. In fact this is imperative for the reasons listed here.
 
@@ -18,28 +13,21 @@ Many publishers today deploy javascript on their page that collects some informa
 
 The header bidding code would make ad requests and integrate with the ad server as it does today. Based on ad responses and data returned from the ad server, the header bidding code could determine if making a TURTLEDOVE request is appropriate. Perhaps there is a high value direct sold ad that supersedes any programmatic campaigns and this ad should be rendered immediately. However, when the publisher’s business logic indicates that TURTLEDOVE overhead could provide valuable demand, the header bidding code would initiate the TURTLEDOVE flow.
 
-### Pre-TURTLEDOVE Flow
-As indicated in the Dovekey proposal, SSPs and DSPs will coordinate to inject bids into a key value store. These bids are references with a combination of interest group ids (ig_id) and contextual ids (c_id).
-
-SSPs can validate creatives and apply any ad quality rules prior injecting them into the key value store.
-
-This injection can happen anytime before the SSP responds to the contextual request for the data to be available at the start of the TURTLEDOVE flow.
-
 ### TURTLEDOVE Flow
 
 When TURTLEDOVE is indicated, the header bidding code could render a variant of a fenced frame passing in contextual bids and ad server data. 
 
 ```
-<fencedFrame src=”headerbidding/turtledove.js” data={...bids, ...adServerData} />
+<fencedFrame src=”headerbidding/turtledove.js” data={...bids, ...adServerData} context="TURTLEDOVE" />
 ```
 
 The fenced frame would prevent any communication between the frame and the external page as well as any network requests.
 
-The code or web bundle loaded into this fenced frame, which could also be managed by the header bidding vendor, would have access to the dove-key store to retrieve interest group bids for each participating SSP.
+The code or web bundle loaded into this fenced frame, which could also be managed by the header bidding vendor, would have access to initiate to retrieve TURTLEDOVE interest group bids for each participating SSP (this might include TERN-like cached bids or access to a DoveKey store).
 
-The code would then execute any configured business logic, using available contextual, interest group and ad server data, resolving any ad quality rules, and running a final auction to choose a winning ad.
+The code would then execute any configured business logic, using available contextual, interest group and ad server data, resolve any ad quality rules, and run a final auction to choose the winning ad.
 
-Once the ad is chosen, some reporting data about the decision could be sent using the aggregate reporting API.
+Once the winning ad is chosen, some reporting data about the decision could be sent using the aggregate reporting API.
 
 Finally, the winning ad is rendered using a nested fenced frame.
 
@@ -47,7 +35,7 @@ Finally, the winning ad is rendered using a nested fenced frame.
 
 In order to ensure that interest group info is not leaked in cases where the contextual ad wins, only the exact url provided to the fenced frame in one of the competing bid objects can be used to render the ad. This will prevent the interest group from being appended via link decoration to the contextual creative url.
 
-Likewise, to prevent leakage of contextual info in cases where the interest group wins, only the exact url returned from the DoveKey store can be used to render the ad.
+Likewise, to prevent leakage of contextual info in cases where the interest group wins, only the exact url returned from one of the contextual methods (TURTLEDOVE, TERN, DoveKey, ect..) can be used to render the ad.
 
 ## Diagrams
 ### Sequence Diagram
@@ -68,11 +56,10 @@ Likewise, to prevent leakage of contextual info in cases where the interest grou
 
 ## Open Questions
 ### Regarding PARRROT
-### Regarding Dovekey
-#### Scalability
-The possible number of contextual and interest group id combinations across all SSPs / DSPs could potentially be very large. Some data analysis is needed to understand the magnitude of the data as well as the cost to reducing this set if needed.
 
-Magnite, for example has about 1.2 trillion interest group - inventory active combinations at any given time and as an SSP we likely have far fewer interest groups than DSPs do. It’s likely we would not need the same inventory granularity in the dovekey store as some optimization could be made there, but this give us an initial sense of the scale needed.
+### Server Side Compatibiliity
+
+PARRROT, like TURTLEDOVE, requires a lot of client side data and computation in order to serve an ad. Would it be possible to perform a similar function server-side while still achieving the necessary privacy levels?
 
 ### Regarding TURTLEDOVE
 #### Reporting
@@ -82,9 +69,6 @@ Reporting is still an issue. At the moment the Aggregate Reporting API seems to 
 
 ## Comparisons to
 ### Vanilla TURTLEDOVE
-#### Ad Caching
-
-In TURTLEDOVE, advertisers are unable to dynamically update their campaign goals. DoveKey and PARROT improve on this by storing ads server side where they can be globally updated as needed.
 
 #### Auction Control
 
@@ -95,13 +79,13 @@ In TURTLEDOVE, the browser controls the auction. Details have not been completel
 [TERN](https://github.com/AdRoll/TERN) expands on TURTLEDOVE to add more details missing from the original proposal, including:
 
 #### In-advance creative approval
-Any viable proposal needs to support a mechanism for creative approval. TERN suggests SSPs can approve or deny a creative as submitted by the DSP. PARRROT allows for creative approval when the DSP provides the creative to the SSP for distribution into a DoveKey store, allowing SSP to enable very granular publisher control over which creatives can serve where on their properties.
+Any viable proposal needs to support a mechanism for creative approval. TERN suggests SSPs can approve or deny a creative as submitted by the DSP. While we believe there are some outstanding issues with scalability, this approach seems to be one of the most promising solutions to this challenge.
 
 #### Ad delivery to the browser at interest group assignment time
-TERN improves on TURTLEDOVEs independent request for and ad by suggesting it could be delivered immediately to the browser when the user is placed in an interest group. PARRROT and DoveKey allow for the browser to request the ad at request time, allowing the DSP closer to real-time control over their campaigns.
+TERN improves on TURTLEDOVEs independent request for and ad by suggesting it could be delivered immediately to the browser when the user is placed in an interest group. We feel this feature is a valuable improvement to TURTLEDOVE, is compatible with PARRROT, and would be valuable for interest groups with smaller memberships.
 
 #### Support for multiple interest groups
-TERN expands TURTLEDOVE to allow advertisers to send multiple interest groups in a single request. PARRROT and DoveKey do not need advanced network requests to put users into an interest group, but multiple interest groups can be sent to DoveKey for retrieval at ad request time.
+TERN expands TURTLEDOVE to allow advertisers to send multiple interest groups in a single request. We feel this feature is a valuable improvement to TURTLEDOVE, is compatible with PARRROT.
 
 #### DSP controlled bidding
 TERN suggests that DSPs should have real-time control over their bids with access to bidding signals. This seems reasonable. PARRROT could be expanded to support bidding functions in addition to static bids.
@@ -110,11 +94,15 @@ TERN suggests that DSPs should have real-time control over their bids with acces
 TERN argues that second price auctions are more secure and simpler overall than are first price auctions. PARRROT does not take a stance here, but instead allows the publisher to determine how the auction is managed allowing for either first or second price as needed.
 
 #### Third party tags
-TERN proposes supporting reporting to third parties. PARRROT could be expanded to allow for third party reporting configuration within the DoveKey store.
+TERN proposes supporting reporting to third parties. PARRROT could be expanded simliarly to allow for third party reporting.
 
 ### DoveKey
 
-[DoveKey](https://github.com/google/rtb-experimental/tree/master/proposals/dovekey) modifies key aspects of TURTLEDOVE and Sparrow, including modifications to the sparrow gatekeeper, and where interest group bids are cached. It still assumes that the final auction is run by the browser, which we believe should be run by the publisher. 
+Google recently released a new proposal named [DoveKey](https://github.com/google/rtb-experimental/tree/master/proposals/dovekey) which "simplifies the bidding and auction aspects of TURTLEDOVE by introducing a third-party KEY-value server."
+
+DoveKey improves [TURTLEDOVE](https://github.com/WICG/turtledove/) so that interest group ads can be updated in real time and ad quality controls can be respected. While there are still some outstanding questions about its feasibility we think its a step in the right direction.
+
+It still assumes that the final auction is run by the browser, which we believe should be run by the publisher. 
 
 ### Sparrow
 [Sparrow](https://github.com/WICG/sparrow/) modifies TURTLEDOVE by bringing several functions out of the browser and onto a trusted server. Those functions are:
