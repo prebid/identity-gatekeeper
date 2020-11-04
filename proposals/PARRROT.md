@@ -39,10 +39,10 @@ Likewise, to prevent leakage of contextual info in cases where the interest grou
 
 ## Diagrams
 ### Sequence Diagram
-![Sequence Diagram](https://user-images.githubusercontent.com/14223042/94969914-c7f6bc00-04c0-11eb-8f1b-97d62b75e317.png)
+![Sequence Diagram](https://user-images.githubusercontent.com/14223042/98175518-0282b880-1eb4-11eb-8095-e17a1a765843.png)
 
 ### Interaction Diagram
-![PARRROT_Flow](https://user-images.githubusercontent.com/14223042/94969915-c88f5280-04c0-11eb-95be-c88b700f41ca.png)
+![PARRROT_Flow](https://user-images.githubusercontent.com/14223042/98175522-044c7c00-1eb4-11eb-8861-338bcb8d4c41.png)
 
 
 1. Publisher deploys some custom JS to their page to control ad serving (much like prebid.js)
