@@ -10,6 +10,7 @@ class SessionSerializer(serializers.ModelSerializer):  # create class to seriali
         model = Session
         fields = ('session_id', 'domain')
 
+
 class CohortSerializer(serializers.ModelSerializer):  # create class to serializer model
     session_id = serializers.CharField(max_length=100)
     cohort = serializers.CharField(max_length=4)
