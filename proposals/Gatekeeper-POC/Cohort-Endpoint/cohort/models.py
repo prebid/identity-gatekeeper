@@ -17,4 +17,3 @@ class Cohort(models.Model):
     c_score = models.DecimalField(max_digits=5, decimal_places=2)
 
 
-

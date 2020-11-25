@@ -1,0 +1,16 @@
+{
+  "adweek.com": {
+    "business_marketing": 0.24999999999999997,
+    "entertain_celeb": 0.12857142857142853,
+    "business_misc": 0.07857142857142856,
+    "tech_social": 0.06428571428571427,
+    "shopping_misc": 0.06428571428571427
+  },
+  "smth.com": {
+    "business_marketing": 0.24999999999999997,
+    "entertain_celeb": 0.12857142857142853,
+    "business_misc": 0.07857142857142856,
+    "tech_social": 0.06428571428571427,
+    "shopping_misc": 0.06428571428571427
+  }
+}

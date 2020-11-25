@@ -4,6 +4,8 @@ from rest_framework.generics import ListCreateAPIView
 from .models import Session, Cohort
 from .serializers import SessionSerializer, CohortSerializer
 from .assign_cohort import Cohorts
+from .definitions_domains import DomainDefinitionsLoader
+from .definitions_cohorts import CohortDefinitionsLoader
 from .constants import Constant
 from .utils import Utils
 import logging

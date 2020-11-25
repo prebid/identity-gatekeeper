@@ -1,0 +1,30 @@
+<html>
+<head>
+    <!-- this script mimicks functionality that would eventually be native to the browser-->
+    <script src="/static/browser/proprietary-cohorts.js"></script>
+    <!-- the classifier function loaded here would eventually be loaded into a sandbox -->
+    <script src="/static/server/classifier.js"></script>
+</head>
+<body>
+<div id="cohortId"></div>
+<script>
+    // const cohortExtensionId = "???";
+    // chrome.runtime.sendMessage(cohortExtensionId, {event: "HISTORY"},
+    //     function (response) {
+    //         if (response.success) {
+    //             window.ProprietaryCohorts
+    //                 .getCohortId(response.history)
+    //                 .then(function (cohortId) {
+    //                     document.getElementById('cohortId').innerText = 'Cohort ID: ' + cohortId;
+    //                 });
+    //         } else {
+    //             // failed to get history
+    //         }
+    //     });
+
+    window.ProprietaryCohorts.getCohortId().then(function (cohortId) {
+        document.getElementById('cohortId').innerText = 'Cohort ID: ' + cohortId;
+    });
+</script>
+</body>
+</html>
