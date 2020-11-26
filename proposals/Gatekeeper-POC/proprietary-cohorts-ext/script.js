@@ -7,8 +7,7 @@ chrome.runtime.sendMessage("fofplhilplkapiocpokanjbfconidpgm", {event: " HISTORY
         for (let key in response) {
             if (Object.prototype.hasOwnProperty.call(response, key)) {
                 console.log(response[key]);
-                let s = `<div> ${key} : ${response[key]}</div>`;
-                res += s;
+                res += `<div> ${key} : ${response[key]}</div>`;
             }
         }
 
