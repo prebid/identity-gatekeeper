@@ -18,7 +18,9 @@
     "file://*/*"
   ],
   "externally_connectable": {
-    "matches": ["*://*.com/*"]
+    "matches": [
+      "<all_urls>"
+    ]
   },
   "manifest_version": 2
 }
