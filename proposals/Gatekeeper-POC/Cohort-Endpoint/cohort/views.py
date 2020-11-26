@@ -1,13 +1,19 @@
+import logging
+
+import pandas as pd
 from rest_framework import status
-from rest_framework.response import Response
 from rest_framework.generics import ListCreateAPIView
+from rest_framework.response import Response
+from django.http import JsonResponse
+import json
+
+from .assign_cohort import Cohorts
+from .definitions_domains import DomainDefinitionsLoader
+from .definitions_cohorts import CohortDefinitionsLoader
+from .constants import Constant
 from .models import Session, Cohort
 from .serializers import SessionSerializer, CohortSerializer
-from .assign_cohort import Cohorts
-from .constants import Constant
 from .utils import Utils
-import logging
-import pandas as pd
 
 
 # Create your views here.
@@ -37,13 +43,12 @@ class CohortView(ListCreateAPIView):
             request.data["session_id"] = session_id
         requestSerializer = SessionSerializer(data=request.data)
 
-
-        if(requestSerializer.is_valid()):
+        if (requestSerializer.is_valid()):
             logging.debug(" is valid ")
             requestSerializer.save();
 
         sessionTopLevelDomains = self.getSessionData(session_id)
-        result = self.session_cohort.get_associated_cohort_content(session_id,  sessionTopLevelDomains)
+        result = self.session_cohort.get_associated_cohort_content(session_id, sessionTopLevelDomains)
         logging.debug('The cohort id is ')
         logging.debug(result.iloc[0].aeLogs_user_cohort_index)
         cohortObj = Cohort();
@@ -55,7 +60,7 @@ class CohortView(ListCreateAPIView):
         return Response(responseSerializer.data, status=status.HTTP_200_OK)
 
     def getSessionData(self, sessionid):
-        sessionDomains = Session.objects.filter(session_id = sessionid)
+        sessionDomains = Session.objects.filter(session_id=sessionid)
         logging.debug(sessionDomains[0].domain)
         df_new_with_DB = pd.DataFrame([vars(s) for s in sessionDomains], columns=['session_id', 'domain'])
         logging.debug("Data base records")
@@ -72,3 +77,20 @@ class CohortView(ListCreateAPIView):
         session_toplevels = df_1a.normalized_referring_domain.values
         logging.debug(session_toplevels)
         return session_toplevels
+
+
+class DomainDefinitionsView(ListCreateAPIView):
+    domain_definition_loader = DomainDefinitionsLoader()
+
+    def get(self, request):
+        domains = request.GET.get('domains', '').split(',')
+        domain_definitions = self.domain_definition_loader.get_domain_definitions(domains)
+        return JsonResponse(domain_definitions, safe=False)
+
+
+class CohortDefinitionsView(ListCreateAPIView):
+    cohort_definition_loader = CohortDefinitionsLoader()
+
+    def get(self, request):
+        cohort_definitions = self.cohort_definition_loader.get_cohort__definitions()
+        return JsonResponse(cohort_definitions, safe=False)
