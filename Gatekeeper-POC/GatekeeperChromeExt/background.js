@@ -229,10 +229,6 @@ function getLastDayDataAboutUrl(url) {
 
         allDates.forEach(function (item, index) {
 
-            console.log("CURRENT TIME " + new Date(item));
-
-            console.log("TIME COMPARE " + cuurentDate);
-
             console.log(item - cuurentDate.getTime());
 
             if (item > cuurentDate.getTime()) {
@@ -248,9 +244,47 @@ function getLastDayDataAboutUrl(url) {
 
 chrome.runtime.onMessageExternal.addListener(
     function (request, sender, sendResponse) {
-        console.log("GOT MESSAGE");
-        if (sender.url == blacklistedWebsite)
-            return;  // don't allow this web page access
-        if (request.openUrlInEditor)
-            openUrl(request.openUrlInEditor);
+
+        chrome.storage.sync.get(null,
+            result => {
+                if (!result) {
+                    sendResponse({response: "no data"});
+                    return;
+                }
+
+                console.log("All data retrieved " + JSON.stringify(result));
+                let keys = Object.keys(result);
+                console.log("All keys: " + keys);
+                let response = {};
+                for (let prop in result) {
+                    if (Object.prototype.hasOwnProperty.call(result, prop)) {
+                        response[prop] = result[prop]["amount"];
+                    }
+                }
+
+                sendResponse(response);
+
+            })
+
     });
+
+function test() {
+    chrome.storage.sync.get(null,
+        result => {
+            let keys = Object.keys(result);
+            console.log("All keys: " + keys);
+            let response = {};
+            for (let prop in result) {
+                if (Object.prototype.hasOwnProperty.call(result, prop)) {
+                    response[prop] = result[prop]["amount"];
+                }
+            }
+
+            console.log("Response to send " + JSON
+                .stringify(response));
+
+            // sendResponse(response);
+
+        })
+
+}
