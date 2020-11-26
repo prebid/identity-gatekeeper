@@ -116,24 +116,5 @@ chrome.runtime.onMessageExternal.addListener(
                 }
 
                 sendResponse(response);
-
             })
-
     });
-
-function test() {
-    chrome.storage.sync.get(null,
-        result => {
-            let keys = Object.keys(result);
-            console.log("All keys: " + keys);
-            let response = {};
-            for (let prop in result) {
-                if (Object.prototype.hasOwnProperty.call(result, prop)) {
-                    response[prop] = result[prop]["amount"];
-                }
-            }
-
-            console.log("Response to send " + JSON
-                .stringify(response));
-        })
-}
