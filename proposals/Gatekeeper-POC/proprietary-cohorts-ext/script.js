@@ -5,10 +5,11 @@ chrome.runtime.sendMessage("fofplhilplkapiocpokanjbfconidpgm", {event: " HISTORY
         let res = "";
 
         for (let key in response) {
-            console.log(response[key]);
-            let s = `<div> ${key} : ${response[key]}</div>`;
-            res += s;
-
+            if (Object.prototype.hasOwnProperty.call(response, key)) {
+                console.log(response[key]);
+                let s = `<div> ${key} : ${response[key]}</div>`;
+                res += s;
+            }
         }
 
         document.getElementById("show").innerHTML = res;
