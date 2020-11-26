@@ -73,7 +73,6 @@ function domainFromUrl(url) {
 }
 
 function getLastDayDataAboutUrl(url) {
-    console.log("GET LAST DATA CALLED");
     if (!url) {
         console.log("Invalid url " + url);
         return;
@@ -85,9 +84,8 @@ function getLastDayDataAboutUrl(url) {
         if (!res) {
             return;
         }
-        var cuurentDate = new Date();
-        //todo cuurentDate.setHours(cuurentDate.getHours() - 24);
-        cuurentDate.setHours(cuurentDate.getSeconds() - 1);
+        var curentDate = new Date();
+        curentDate.setHours(curentDate.getHours() - 24);
         var allDates = res[url]["date"];
 
         var response = [];
