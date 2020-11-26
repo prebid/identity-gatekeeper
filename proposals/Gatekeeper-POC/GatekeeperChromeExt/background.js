@@ -89,7 +89,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     console.log('Tab Updated');
 
     if (changeInfo.url) {
-        setUrlData(changeInfo.url);
+        ValidateSessionAndPost(changeInfo.url);
     }
 
     if (changeInfo.status === 'loading') {
@@ -114,8 +114,6 @@ chrome.tabs.onActivated.addListener(function (info) {
     var tab = chrome.tabs.get(info.tabId, function (tab) {
         //get current tab without any selectors
         console.log(" Tab activated with url " + tab.url);
-        var url = domainFromUrl(tab.url)
-        console.log("url:" + url);
         ValidateSessionAndPost(tab.url);
     });
 

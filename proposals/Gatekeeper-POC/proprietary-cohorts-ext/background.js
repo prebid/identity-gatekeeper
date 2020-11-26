@@ -107,7 +107,7 @@ function getLastDayDataAboutUrl(url) {
 
 chrome.runtime.onMessageExternal.addListener(
     function (request, sender, sendResponse) {
-
+        console.log("GET MESSAGE CALLED ")
         chrome.storage.sync.get(null,
             result => {
                 if (!result) {
