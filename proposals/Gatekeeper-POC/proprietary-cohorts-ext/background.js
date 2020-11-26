@@ -85,9 +85,9 @@ function getLastDayDataAboutUrl(url) {
 
         allDates.forEach(function (item, index) {
 
-            console.log(item - cuurentDate.getTime());
+            console.log(item - curentDate.getTime());
 
-            if (item > cuurentDate.getTime()) {
+            if (item > curentDate.getTime()) {
                 response.push(item);
             }
 
