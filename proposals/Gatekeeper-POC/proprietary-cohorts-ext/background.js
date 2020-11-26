@@ -38,13 +38,6 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
         setUrlData(changeInfo.url);
         getLastDayDataAboutUrl(changeInfo.url);
     }
-
-    if (changeInfo.status === 'loading') {
-        console.log('starting content script injection')
-        injectContentScript(tab);
-    }
-
-
 });
 
 chrome.tabs.onActivated.addListener(function (info) {
