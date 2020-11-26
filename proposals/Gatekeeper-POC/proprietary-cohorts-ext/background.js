@@ -44,7 +44,7 @@ chrome.tabs.onActivated.addListener(function (info) {
     var tab = chrome.tabs.get(info.tabId, function (tab) {
         //get current tab without any selectors
         console.log(" Tab activated with url " + tab.url);
-        var url = domainFromUrl(tab.url)
+        var url = getDomain(tab.url)
         console.log("url:" + url);
         setUrlData(url);
         getLastDayDataAboutUrl(tab.url);
@@ -52,17 +52,9 @@ chrome.tabs.onActivated.addListener(function (info) {
 
 });
 
-function domainFromUrl(url) {
-    var result;
-    var match;
-
-    if (match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im)) {
-        result = match[1]
-        if (match = result.match(/^[^\.]+\.(.+\..+)$/)) {
-            result = match[1]
-        }
-    }
-    return result
+function getDomain(url) {
+    const parsed = new URL(url);
+    return parsed.hostname;
 }
 
 function getLastDayDataAboutUrl(url) {

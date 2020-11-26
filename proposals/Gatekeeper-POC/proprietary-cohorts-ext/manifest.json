@@ -19,7 +19,7 @@
   ],
   "externally_connectable": {
     "matches": [
-      "<all_urls>"
+      "*://localhost/*"
     ]
   },
   "manifest_version": 2
