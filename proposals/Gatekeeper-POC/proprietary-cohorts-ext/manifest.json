@@ -1,0 +1,21 @@
+{
+  "name": "GateKeeper+FLoC",
+  "version": "0.1",
+  "description": "Gatekeeper Extension ",
+  "background": {
+    "persistent": false,
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "permissions": [
+    "privacy",
+    "storage",
+    "tabs",
+    "activeTab",
+    "http://*/*",
+    "https://*/*",
+    "file://*/*"
+  ],
+  "manifest_version": 2
+}
