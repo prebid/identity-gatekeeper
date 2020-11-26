@@ -17,5 +17,8 @@
     "https://*/*",
     "file://*/*"
   ],
+  "externally_connectable": {
+    "matches": ["*://*.com/*"]
+  },
   "manifest_version": 2
 }
