@@ -1,0 +1,40 @@
+<html>
+    <head>
+    </head>
+<body>
+<script>
+     var storeSessionVar = function (key, value) {
+        localStorage.setItem(key, value);
+     };
+     var getSessionVar = function (key) {
+        return localStorage.getItem(key);
+     };
+     var removeSessionVar = function (key) {
+        return localStorage.removeItem(key);
+     };
+    var respondToMessage = function (e) {
+        if (typeof e.data === 'object') {
+            console.log('unexpected object');
+            return;
+        }
+        var message = JSON.parse(e.data);
+        switch(message.method) {
+            case 'getSessionVar':
+                message.response = getSessionVar(message.params.key);
+                break;
+            case 'storeSessionVar':
+                message.response = storeSessionVar(message.params.key, message.params.value);
+                break;
+            case 'removeSessionVar':
+                message.response = removeSessionVar(message.params.key);
+                break;
+            default:
+                message.error = 'unknown method';
+                break;
+        }
+        e.source.postMessage(JSON.stringify(message), e.origin);
+    };
+    window.addEventListener('message', respondToMessage, false);
+</script>
+</body>
+</html>

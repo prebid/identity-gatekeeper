@@ -1,0 +1,124 @@
+{
+  "1": {
+    "topLevels": [
+      "br.yahoo.com",
+      "mail.yahoo.com",
+      "noticias.uol.com.br"
+    ],
+    "cohortContentExist": {
+      "politics_misc": 0.1242,
+      "sport_soccer": 0.1148,
+      "law_misc": 0.1078,
+      "entertain_tv": 0.0966,
+      "covid19": 0.0823,
+      "health_misc": 0.0758,
+      "science_environ": 0.0508,
+      "sport_misc": 0.0435,
+      "sport_athletics": 0.0429,
+      "economy_misc": 0.0245,
+      "politics_brazilian": 0.0239,
+      "science_misc": 0.0234,
+      "society_religion": 0.0186,
+      "sport_tennis": 0.0144,
+      "entertain_music": 0.0125
+    }
+  },
+  "2": {
+    "topLevels": [
+      "g1.globo.com",
+      "globoesporte.globo.com",
+      "oantagonista.com"
+    ],
+    "cohortContentExist": {
+      "health_misc": 0.1679,
+      "health_specialities": 0.1019,
+      "business_misc": 0.0834,
+      "covid19": 0.0519,
+      "entertain_tv": 0.0443,
+      "entertain_movies": 0.0442,
+      "tech_computing": 0.0429,
+      "entertain_vidgames": 0.0334,
+      "health_nutrition": 0.0332,
+      "health_digestive": 0.0317,
+      "health_diet": 0.0315,
+      "shopping_misc": 0.0304,
+      "health_exercise": 0.0223,
+      "health_musculoskeletal": 0.0208,
+      "health_derma": 0.02
+    }
+  },
+  "3": {
+    "topLevels": [
+      "doctor.webmd.com",
+      "health.usnews.com",
+      "medicinenet.com",
+      "vitals.com",
+      "webmd.com"
+    ],
+    "cohortContentExist": {
+      "entertain_vidgames": 0.3391,
+      "tech_social": 0.1855,
+      "politics_american": 0.131,
+      "entertain_movies": 0.0839,
+      "crime": 0.0464,
+      "tech_computing": 0.0312,
+      "family_children": 0.0297,
+      "entertain_music": 0.0224,
+      "event_music_festival": 0.013,
+      "tech_phones": 0.0082,
+      "entertain_tv": 0.0079,
+      "home_gardening": 0.0078,
+      "entertain_games": 0.0077,
+      "entertain_arts": 0.0076,
+      "food_misc": 0.0063
+    }
+  },
+  "4": {
+    "topLevels": [
+      "kotaku.com",
+      "polygon.com",
+      "reddit.com"
+    ],
+    "cohortContentExist": {
+      "health_misc": 0.1736,
+      "health_specialities": 0.0897,
+      "covid19": 0.0718,
+      "tech_computing": 0.0716,
+      "entertain_tv": 0.069,
+      "entertain_movies": 0.0659,
+      "entertain_vidgames": 0.0557,
+      "shopping_misc": 0.0506,
+      "health_nutrition": 0.0452,
+      "health_diet": 0.0417,
+      "health_exercise": 0.0349,
+      "health_digestive": 0.0241,
+      "health_musculoskeletal": 0.02,
+      "fashion_beauty": 0.0189,
+      "food_misc": 0.0183
+    }
+  },
+  "5": {
+    "topLevels": [
+      "doctor.webmd.com",
+      "health.usnews.com",
+      "webmd.com"
+    ],
+    "cohortContentExist": {
+      "webmail": 0.3333,
+      "tech_social": 0.1126,
+      "health_misc": 0.0932,
+      "covid19": 0.0927,
+      "sport_misc": 0.0454,
+      "news_and_weather": 0.0446,
+      "politics_misc": 0.0295,
+      "tech_computing": 0.0275,
+      "entertain_tv": 0.022,
+      "entertain_celeb": 0.0208,
+      "health_alt": 0.0177,
+      "science_environ": 0.0176,
+      "law_misc": 0.0157,
+      "crime": 0.015,
+      "family_children": 0.0125
+    }
+  }
+}
