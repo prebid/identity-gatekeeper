@@ -1,6 +1,6 @@
-var SESSIONID_URL = 'http://ec2-34-209-240-19.us-west-2.compute.amazonaws.com:8000/api/v1/cohort/' ;
+var SESSIONID_URL = 'http://ec2-34-209-240-19.us-west-2.compute.amazonaws.com:8000/api/v1/cohort/';
 
-const interval = setInterval(function() {
+const interval = setInterval(function () {
     console.log("The session id is reset ");
     resettingSessionId();
 }, 18000000);
@@ -12,22 +12,23 @@ function resettingSessionId() {
     });
 }
 
-function setSessionIdStorage(sid){
-    console.log(" Setting session id" +sid);
+function setSessionIdStorage(sid) {
+    console.log(" Setting session id" + sid);
     var sessionIdData = {}
     sessionIdData.sid = sid
     chrome.storage.sync.set({"GatekeeperId": sessionIdData}, function () {
-        console.log(" Gatekeeper data: "+ sessionIdData);
+        console.log(" Gatekeeper data: " + sessionIdData);
     });
 }
 
-function setCohortStorage(cohort, score){
-    console.log(" Setting cohort" +cohort);
-    var cohortData = {}
-    cohortData.cohort = cohort
-    cohortData.score = score
+function setCohortStorage(cohort, score) {
+    console.log(" Setting cohort" + cohort);
+    var cohortData = {};
+    cohortData.cohort = cohort;
+    cohortData.score = score;
+
     chrome.storage.sync.set({"Cohort": cohortData}, function () {
-        console.log(" Cohort to storage: "+ cohortData);
+        console.log(" Cohort to storage: " + cohortData);
     });
 }
 
@@ -43,14 +44,15 @@ function makeIdRequest(callback) {
 
 function postRequest(uri, sid) {
     console.log(" uri " + uri);
-    if(uri.includes("?")){
+    if (uri.includes("?")) {
         uri = uri.substring(0, uri.indexOf('?'));
     }
     console.log("Posted uri" + uri);
 
-    if(uri.length > 0) {
-        var sessionid = ""
-        if(sid!= undefined && !isEmptyObject(sid)){
+    if (uri.length > 0) {
+        var sessionid = "";
+
+        if (sid !== undefined && !isEmptyObject(sid)) {
             sessionid = sid.GatekeeperId.sid;
         }
 
@@ -66,26 +68,26 @@ function postRequest(uri, sid) {
                 console.log(" Response " + json)
                 setSessionIdStorage(json.session_id);
                 setCohortStorage(json.cohort, json.c_score);
-
             }
         }
     }
 }
 
-function ValidateSessionAndPost(uri){
+function ValidateSessionAndPost(uri) {
 
-    if(!isValidURL(uri)){
+    if (!isValidURL(uri)) {
         console.log("Invalid uri" + uri);
         return;
     }
     chrome.storage.sync.get('GatekeeperId', function (obj) {
         console.log('GatekeeperId', obj.GatekeeperId);
-            postRequest(uri,obj);
+        postRequest(uri, obj);
     });
 }
 
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-    console.log('Tab Updated')
+    console.log('Tab Updated');
+
     if (changeInfo.url) {
         ValidateSessionAndPost(changeInfo.url);
     }
@@ -95,22 +97,23 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
         injectContentScript(tab);
     }
 
+
 });
 
 chrome.tabs.onCreated.addListener(function (tabId) {
 
     chrome.tabs.getSelected(null, function (tab) {
         //get current tab without any selectors
-        console.log(" Tab created with url "+ tab.url);
+        console.log(" Tab created with url " + tab.url);
         ValidateSessionAndPost(tab.url);
     });
 
 });
 
-chrome.tabs.onActivated.addListener(function(info) {
-    var tab = chrome.tabs.get(info.tabId, function(tab) {
+chrome.tabs.onActivated.addListener(function (info) {
+    var tab = chrome.tabs.get(info.tabId, function (tab) {
         //get current tab without any selectors
-        console.log(" Tab activated with url "+ tab.url);
+        console.log(" Tab activated with url " + tab.url);
         ValidateSessionAndPost(tab.url);
     });
 
@@ -119,13 +122,13 @@ chrome.tabs.onActivated.addListener(function(info) {
 function isValidURL(string) {
     var res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
     return (res !== null)
-};
+}
 
 function injectContentScript(tab) {
     console.log('Injecting script');
-    chrome.storage.sync.get(['Cohort'], function(result) {
+    chrome.storage.sync.get(['Cohort'], function (result) {
 
-        if(isEmptyObject(result)){
+        if (isEmptyObject(result)) {
             return;
         }
         const cohort = result.Cohort.cohort;
@@ -148,6 +151,6 @@ function injectContentScript(tab) {
     })
 }
 
-function isEmptyObject(obj){
+function isEmptyObject(obj) {
     return JSON.stringify(obj) === '{}';
 }

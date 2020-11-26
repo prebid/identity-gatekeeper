@@ -2,10 +2,6 @@
   "name": "GateKeeper+FLoC",
   "version": "0.1",
   "description": "Gatekeeper Extension ",
-  "browser_action": {
-    "default_icon": "magnite.jpg",
-    "default_popup": "index.html"
-  },
   "background": {
     "persistent": false,
     "scripts": [
