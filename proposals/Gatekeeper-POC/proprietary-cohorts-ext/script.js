@@ -12,5 +12,6 @@ chrome.runtime.sendMessage("fofplhilplkapiocpokanjbfconidpgm", {event: " HISTORY
         }
 
         document.getElementById("show").innerHTML = res;
+
     }
 );

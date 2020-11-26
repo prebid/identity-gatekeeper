@@ -63,7 +63,7 @@ function getLastDayDataAboutUrl(url) {
         return;
     }
 
-    url = domainFromUrl(url);
+    url = getDomain(url);
 
     chrome.storage.sync.get([url], function (res) {
         if (!res) {
