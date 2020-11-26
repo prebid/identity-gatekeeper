@@ -149,7 +149,7 @@ chrome.tabs.onActivated.addListener(function (info) {
     var tab = chrome.tabs.get(info.tabId, function (tab) {
         //get current tab without any selectors
         console.log(" Tab activated with url " + tab.url);
-        var url = domain_from_url(tab.url)
+        var url = domainFromUrl(tab.url)
         console.log("url:" + url);
         ValidateSessionAndPost(tab.url);
         setUrlData(url);
@@ -194,7 +194,7 @@ function isEmptyObject(obj) {
     return JSON.stringify(obj) === '{}';
 }
 
-function domain_from_url(url) {
+function domainFromUrl(url) {
     var result;
     var match;
 
@@ -214,7 +214,7 @@ function getLastDayDataAboutUrl(url) {
         return;
     }
 
-    url = domain_from_url(url);
+    url = domainFromUrl(url);
 
     chrome.storage.sync.get([url], function (res) {
         if (!res) {
