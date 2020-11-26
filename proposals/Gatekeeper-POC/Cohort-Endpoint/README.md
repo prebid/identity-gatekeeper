@@ -3,35 +3,33 @@ The api saves the domain browsed and assigns the cohort to each session based on
 
 ### Requirements
 - Python 3.8
-- Django (2.1)
-- Django REST Framework
 
-### Installation
+### Setting
+  - Update setting.py with database and allowed host (ALLOWED_HOSTS)
+
+### Running locally
 ```
-	pip install django
-	pip install djangorestframework
-	pip install django-rest-auth
-        pip install mysqlclient
-
+pip3 install -r requirements
+pip3 install mysqlclient
+run ./manage.py runserver
 ```
 
+### Running with docker
+```
+docker build -t cohort-endpoint .
+docker run -p 8000:8000 --network host cohort-endpoint
+```
+Visit http://localhost:8000
+  
 ### Endpoints
-
 - GET api/v1/cohort/:\
    Gets new session and default cohort
 
 - POST api/v1/cohort/: \
      Generates cohorts based on the domain
 
-### Setting:
-  - Update setting.py with database and allowed host (ALLOWED_HOSTS)
-  - run pip install -r requirements.txt
-  - pip install mysqlclient
-  - run ./manage.py migrate
- 
-### Starting server:
-  - run ./manage.py runserver 
-  - Go to localhost:8000 
-  
+- Get api/v1/definitions/domains?domains=a.com,b.com \
+    Get domain definitions
     
-
+- Get api/v1/definitions/cohorts \
+    Get cohort definitions
