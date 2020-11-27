@@ -125,32 +125,29 @@ function getCohortId(cohortContent, cohortDefinitions) {
 }
 
 function getDomain(url) {
-    const parsed = new URL(url);
-    return parsed.hostname;
+    try {
+        const parsed = new URL(url);
+        return parsed.hostname;
+    } catch (e) {
+        return undefined;
+    }
 }
 
 function getTopLevelDomains(history) {
-    return history.map(item => getDomain(item));
+    return history
+        .map(item => getDomain(item))
+        .filter(item => !!item)
+        .map(item => item.replace(/^www\./, ''))
+        .filter((item, index, self) => self.indexOf(item) === index);
+
 }
 
 if (ProprietaryCohorts) {
-    ProprietaryCohorts.classifier = function (url, state) {
-        if (typeof state !== 'object') {
-            console.log('state is not an object')
-            return;
-        }
+    ProprietaryCohorts.classifier = function (historyMap) {
+        const history = Object.keys(historyMap);
+        const topLevel = getTopLevelDomains(history);
 
-        if (!Array.isArray(state.history)) {
-            state.history = [];
-        }
-        state.history = [
-            'http://addweek.com/',
-            'http://6pm.com?param=true',
-            'http://smth.com'
-        ];
-        state.history.push(url);
-
-        const domainsUrl = DOMAIN_DEFINITIONS_URL + '?domains=' + getTopLevelDomains(state.history).join(',');
+        const domainsUrl = DOMAIN_DEFINITIONS_URL + '?domains=' + topLevel.join(',');
         const domainDefinitionsPromise = utils.request(domainsUrl, 'GET')
             .then(response => {
                 const topLevelDefinitions = new Map();
@@ -171,11 +168,10 @@ if (ProprietaryCohorts) {
 
         return Promise.all([domainDefinitionsPromise, cohortDefinitionsPromise])
             .then(results => {
-                const topLevel = getTopLevelDomains(state.history);
                 const historyCohortContent = getCohortContentByHistory(topLevel, results[0]);
-                state.cohortId = getCohortId(historyCohortContent, results[1]);
-                console.log(`Cohort: ${state.cohortId}`);
-                return state.cohortId;
+                const cohortId = getCohortId(historyCohortContent, results[1]);
+                console.log(`Cohort: ${cohortId}`);
+                return cohortId;
             });
     }
 

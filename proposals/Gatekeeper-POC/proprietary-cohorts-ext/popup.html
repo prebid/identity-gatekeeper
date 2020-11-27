@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cohort Extension</title>
+    <script src="popup.js"></script>
+    <style>
+        body {
+            margin: 0px;
+            width: 360px;
+            overflow: hidden;
+            font-family: Roboto, sans-serif;
+            font-size: 14px;
+            background-color: transparent;
+        }
+
+        .button {
+            border: none;
+            color: white;
+            padding: 10px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 10px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+
+        .button-blue {
+            background-color: white;
+            color: black;
+            border: 2px solid #008CBA;
+        }
+
+        .button-blue:hover {
+            background-color: #008CBA;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+<h2>Cohort Extension</h2>
+<div></div>
+<button id="clearAllData" type="button" class="button button-blue">Clear storage</button>
+<div id="clearAllDataResult"></div>
+<hr/>
+
+<div>Extensions stores aggregated history (top level domains)</div>
+</body>
+</html>

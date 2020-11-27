@@ -1,10 +1,10 @@
 {
-  "name": "GateKeeper+FLoC",
+  "name": "identity-gatekeeper-cohorts",
   "version": "0.1",
-  "description": "Gatekeeper Extension ",
+  "description": "Gatekeeper Extension",
   "browser_action": {
     "default_icon": "magnite.jpg",
-    "default_popup": "index.html"
+    "default_popup": "popup.html"
   },
   "background": {
     "persistent": false,
@@ -21,5 +21,10 @@
     "https://*/*",
     "file://*/*"
   ],
+  "externally_connectable": {
+    "matches": [
+      "*://localhost/*"
+    ]
+  },
   "manifest_version": 2
 }

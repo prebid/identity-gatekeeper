@@ -5,26 +5,72 @@
     <!-- the classifier function loaded here would eventually be loaded into a sandbox -->
     <script src="/static/server/classifier.js"></script>
 </head>
-<body>
-<div id="cohortId"></div>
-<script>
-    // const cohortExtensionId = "???";
-    // chrome.runtime.sendMessage(cohortExtensionId, {event: "HISTORY"},
-    //     function (response) {
-    //         if (response.success) {
-    //             window.ProprietaryCohorts
-    //                 .getCohortId(response.history)
-    //                 .then(function (cohortId) {
-    //                     document.getElementById('cohortId').innerText = 'Cohort ID: ' + cohortId;
-    //                 });
-    //         } else {
-    //             // failed to get history
-    //         }
-    //     });
+<h2>Proprietary cohorts demo</h2>
+<p>
+    Extension simulates privacy sandbox. To run this demo you need to:
+<ul>
+    <li>Install chrome extension from
+        <a href="https://github.com/prebid/identity-gatekeeper/tree/master/proposals/Gatekeeper-POC/proprietary-cohorts-ext">Magnite
+            Proprietary Cohorts Extension</a>
+    </li>
+    <li>Update input with your extension id</li>
+    <li> navigate through some pages. E.g. 6pm.com, adsweek.com. While navigating see hom cohort id changes</li>
+</ul>
 
-    window.ProprietaryCohorts.getCohortId().then(function (cohortId) {
-        document.getElementById('cohortId').innerText = 'Cohort ID: ' + cohortId;
-    });
+<div>
+    Sample data
+    <ul>
+        <li>Sample domain definitions: <a href="/static/server/domains.json" target="_blank">domains.json</a></li>
+        <li>Sample cohort definitions: <a href="/static/server/cohortDefinitions.json" target="_blank">cohorts.json</a>
+        </li>
+    </ul>
+</div>
+<p>
+
+    Demo does:
+<ul>
+    <li>Consults user history from extension. This mimics privacy sandbox</li>
+    <li> Loads classifier function from trusted location</li>
+    <li>Classifier in turn loads scoring for domains and cohorts</li>
+    <ul>
+        <li>top level domain definitions (obtained from user history)</li>
+        <li>cohort definitions (limited to 10)</li>
+    </ul>
+    <li>obtains cohort id</li>
+</ul>
+</p>
+
+<div>
+    <input id="extensionId">
+    <button id="triggerCohort">Get cohort id</button>
+</div>
+
+<h2>Cohort</h2>
+<div id="cohortId"></div>
+<p/>
+<h2>History</h2>
+<div id="history"></div>
+<script>
+    const cohortExtensionId = "fmeiijldamfcfihikhfpfpidpoecinpb";
+
+    function triggerButton() {
+        var extensionId = document.getElementById("extensionId").value;
+        chrome.runtime.sendMessage(extensionId, {event: "HISTORY"},
+            function (response) {
+                if (window.ProprietaryCohorts && window.ProprietaryCohorts.classifier) {
+                    window.ProprietaryCohorts.classifier(response).then(function (cohortId) {
+                        document.getElementById('cohortId').innerText = 'Cohort ID: ' + cohortId;
+                    })
+                }
+            });
+    }
+
+    window.onload = function () {
+        document.getElementById("extensionId").value = cohortExtensionId;
+        document.getElementById('triggerCohort').addEventListener('click', triggerButton);
+        triggerButton();
+    };
+
 </script>
 </body>
 </html>
