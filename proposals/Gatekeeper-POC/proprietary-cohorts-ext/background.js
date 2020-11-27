@@ -38,20 +38,13 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
         setUrlData(changeInfo.url);
         getLastDayDataAboutUrl(changeInfo.url);
     }
-
-    if (changeInfo.status === 'loading') {
-        console.log('starting content script injection')
-        injectContentScript(tab);
-    }
-
-
 });
 
 chrome.tabs.onActivated.addListener(function (info) {
     var tab = chrome.tabs.get(info.tabId, function (tab) {
         //get current tab without any selectors
         console.log(" Tab activated with url " + tab.url);
-        var url = domainFromUrl(tab.url)
+        var url = getDomain(tab.url)
         console.log("url:" + url);
         setUrlData(url);
         getLastDayDataAboutUrl(tab.url);
@@ -59,17 +52,9 @@ chrome.tabs.onActivated.addListener(function (info) {
 
 });
 
-function domainFromUrl(url) {
-    var result;
-    var match;
-
-    if (match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im)) {
-        result = match[1]
-        if (match = result.match(/^[^\.]+\.(.+\..+)$/)) {
-            result = match[1]
-        }
-    }
-    return result
+function getDomain(url) {
+    const parsed = new URL(url);
+    return parsed.hostname;
 }
 
 function getLastDayDataAboutUrl(url) {
@@ -78,7 +63,7 @@ function getLastDayDataAboutUrl(url) {
         return;
     }
 
-    url = domainFromUrl(url);
+    url = getDomain(url);
 
     chrome.storage.sync.get([url], function (res) {
         if (!res) {
@@ -91,10 +76,7 @@ function getLastDayDataAboutUrl(url) {
         var response = [];
 
         allDates.forEach(function (item, index) {
-
-            console.log(item - cuurentDate.getTime());
-
-            if (item > cuurentDate.getTime()) {
+            if (item > curentDate.getTime()) {
                 response.push(item);
             }
 
@@ -126,24 +108,5 @@ chrome.runtime.onMessageExternal.addListener(
                 }
 
                 sendResponse(response);
-
             })
-
     });
-
-function test() {
-    chrome.storage.sync.get(null,
-        result => {
-            let keys = Object.keys(result);
-            console.log("All keys: " + keys);
-            let response = {};
-            for (let prop in result) {
-                if (Object.prototype.hasOwnProperty.call(result, prop)) {
-                    response[prop] = result[prop]["amount"];
-                }
-            }
-
-            console.log("Response to send " + JSON
-                .stringify(response));
-        })
-}

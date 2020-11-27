@@ -1,5 +1,5 @@
 {
-  "name": "GateKeeper+FLoC",
+  "name": "identity-gatekeeper-cohorts",
   "version": "0.1",
   "description": "Gatekeeper Extension ",
   "background": {
@@ -17,5 +17,10 @@
     "https://*/*",
     "file://*/*"
   ],
+  "externally_connectable": {
+    "matches": [
+      "*://localhost/*"
+    ]
+  },
   "manifest_version": 2
 }
