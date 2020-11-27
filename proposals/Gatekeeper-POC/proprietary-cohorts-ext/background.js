@@ -6,13 +6,13 @@ function setUrlData(url) {
         return;
     }
 
-    chrome.storage.sync.get([url], function (res) {
+    chrome.storage.local.get([url], function (res) {
         if (url in res) {
 
             res[url]["date"].push(new Date().getTime());
             res[url]["amount"] = res[url]["date"].length;
 
-            chrome.storage.sync.set(res, function () {
+            chrome.storage.local.set(res, function () {
                 console.log("Old  Url set: " + url + " value: " + res[url]["amount"]);
             });
         } else {
@@ -24,7 +24,7 @@ function setUrlData(url) {
                 date: [date]
             };
 
-            chrome.storage.sync.set(data, function () {
+            chrome.storage.local.set(data, function () {
                 console.log("New set: " + url + " value: " + JSON.stringify(data[url]));
             });
         }
@@ -65,7 +65,7 @@ function getLastDayDataAboutUrl(url) {
 
     url = getDomain(url);
 
-    chrome.storage.sync.get([url], function (res) {
+    chrome.storage.local.get([url], function (res) {
         if (!res) {
             return;
         }
@@ -87,26 +87,21 @@ function getLastDayDataAboutUrl(url) {
 
 }
 
+function getHistoryFromStorage(sendResponse) {
+    chrome.storage.local.get(null, result => {
+        if (!result) {
+            sendResponse({});
+            return;
+        }
+        const history = {};
+        Object.entries(result).forEach(entry => {
+            history[entry[0]] = entry[1]["amount"];
+        })
+        sendResponse(history);
+    });
+}
+
 chrome.runtime.onMessageExternal.addListener(
     function (request, sender, sendResponse) {
-        console.log("GET MESSAGE CALLED ")
-        chrome.storage.sync.get(null,
-            result => {
-                if (!result) {
-                    sendResponse({response: "no data"});
-                    return;
-                }
-
-                console.log("All data retrieved " + JSON.stringify(result));
-                let keys = Object.keys(result);
-                console.log("All keys: " + keys);
-                let response = {};
-                for (let prop in result) {
-                    if (Object.prototype.hasOwnProperty.call(result, prop)) {
-                        response[prop] = result[prop]["amount"];
-                    }
-                }
-
-                sendResponse(response);
-            })
+        getHistoryFromStorage(sendResponse);
     });

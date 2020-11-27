@@ -1,7 +1,11 @@
 {
   "name": "identity-gatekeeper-cohorts",
   "version": "0.1",
-  "description": "Gatekeeper Extension ",
+  "description": "Gatekeeper Extension",
+  "browser_action": {
+    "default_icon": "magnite.jpg",
+    "default_popup": "popup.html"
+  },
   "background": {
     "persistent": false,
     "scripts": [
