@@ -25,7 +25,9 @@ SECRET_KEY = 'test'
 DEBUG = True
 
 # ALLOWED_HOSTS = ['ec2-34-209-240-19.us-west-2.compute.amazonaws.com']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "de-cohort-endpoint-dev.usw2.fanops.net"
+]
 
 # Application definition
 

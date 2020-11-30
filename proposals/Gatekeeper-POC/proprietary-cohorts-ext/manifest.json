@@ -23,7 +23,8 @@
   ],
   "externally_connectable": {
     "matches": [
-      "*://localhost/*"
+      "*://localhost/*",
+      "*://de-cohort-endpoint-dev.usw2.fanops.net/*"
     ]
   },
   "manifest_version": 2
