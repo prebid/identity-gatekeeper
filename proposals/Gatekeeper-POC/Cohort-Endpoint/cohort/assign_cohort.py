@@ -83,7 +83,11 @@ class Cohorts:
 
     # Find the best-matching user cohort for each session, using the cosine similarity
     def similarity(self,df_gateKeeperUserCohorts, df_aeLogsUserCohorts):
-
+        logging.debug("Getting the cohort and the score")
+        logging.debug("Length of df_aeLogsUserCohorts ")
+        logging.debug(len(df_aeLogsUserCohorts))
+        logging.debug("Length of df_gateKeeperUserCohorts" )
+        logging.debug(len(df_gateKeeperUserCohorts))
         df = df_gateKeeperUserCohorts.copy()
         maxSimList = []
         maxSimIndList = []
@@ -92,6 +96,7 @@ class Cohorts:
         logging.debug(df_gateKeeperUserCohorts.cohort_content.iloc[0])
         contents_A = df_gateKeeperUserCohorts.cohort_content.iloc[0]
         if len(contents_A) > 0:
+            logging.debug("All the content to get the score")
             logging.debug(contents_A)
             df_A = pd.DataFrame(contents_A, columns=['siteContent', 'percentage'])
 
@@ -113,7 +118,8 @@ class Cohorts:
 
                 simList.append(round(cross_product / (A * B), 2))
             if len(simList) > 0:
-
+                logging.debug("The sim list ")
+                logging.debug(len(simList))
                 maxSim = max(simList)
                 # Sometimes, there could be more than one max value in a list
                 maxSimInd = ([i for i, j in enumerate(simList) if j == maxSim])[-1]

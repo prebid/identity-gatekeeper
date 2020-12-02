@@ -1,4 +1,4 @@
-var SESSIONID_URL = 'http://ec2-34-209-240-19.us-west-2.compute.amazonaws.com:8000/api/v1/cohort/';
+var SESSIONID_URL = 'https://de-cohort-endpoint-dev.usw2.fanops.net:8000/api/v1/cohort/';
 
 const interval = setInterval(function () {
     console.log("The session id is reset ");
