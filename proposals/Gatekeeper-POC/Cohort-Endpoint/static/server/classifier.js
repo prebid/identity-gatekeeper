@@ -47,8 +47,8 @@ const utils = {
 
 // --------------------------------------------------------
 
-const DOMAIN_DEFINITIONS_URL = "https://de-cohort-endpoint-dev.usw2.fanops.net:8000/api/v1/definitions/domains/"
-const COHORT_DEFINITIONS_URL = "https://de-cohort-endpoint-dev.usw2.fanops.net:8000/api/v1/definitions/cohorts/";
+const DOMAIN_DEFINITIONS_URL = "https://de-cohort-endpoint.magnite.com/api/v1/definitions/domains/"
+const COHORT_DEFINITIONS_URL = "https://de-cohort-endpoint.magnite.com/api/v1/definitions/cohorts/";
 const DEFAULT_COHORT_ID = '0';
 
 function keysIntersection(mapA, mapB) {
