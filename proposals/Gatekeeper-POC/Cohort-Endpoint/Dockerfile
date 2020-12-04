@@ -1,4 +1,5 @@
-FROM python:3
+FROM docker.rp-core.com/hub/python:3.8.6-buster
+# FROM python:3
 ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app/cohort-endpoint
