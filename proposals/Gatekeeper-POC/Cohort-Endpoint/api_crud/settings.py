@@ -26,7 +26,6 @@ DEBUG = True
 
 # ALLOWED_HOSTS = ['ec2-34-209-240-19.us-west-2.compute.amazonaws.com']
 ALLOWED_HOSTS = [
-    "de-cohort-endpoint.magnite.com",
     "de-cohort-endpoint-dev.usw2.fanops.net"
 ]
 
