@@ -21,34 +21,31 @@ function storageAccessAPISupported() {
   );
 }
 
-function accessStorage(fn) {
+function requestAccess(fn) {
+  document.requestStorageAccess()
+    .then(function () {
+      console.info('Storage API Access granted.');
+      fn();
+      return;
+      }, function (){
+      console.warn('Storage API Access denied.');
+      });
+  }
+
+function hasAccess() {
   document.hasStorageAccess()
-    .then(function (hasAccess){
+    .then(hasAccess =>{
       if (hasAccess) {
-        console.info('Storage API Access already granted');
-        fn();
-        return;
+        console.info('Frame has Storage Access');
+      } else {
+        console.info('Frame does not have Storage Access');
       }
-
-      console.info('no existing Storage API Access ...');
-      console.info('requesting Storage API Access ...');
-
-      document.requestStorageAccess()
-        .then(function () {
-          console.info('Storage API Access granted.');
-          fn();
-          return;
-        }, function (){
-          console.warn('Storage API Access denied.');
-        });
-    }, function (reason) {
-      console.warn('something went wrong ...');
-      console.error(reason);
     });
-}
+  }
 
 function onUpdated(event) {
   renderUid(event.detail.sharedId);
+  console.info('OnUpdate Called');
 }
 
 function updateId() {
@@ -86,7 +83,7 @@ function init() {
 
 function attachEventHandlers() {
   sharedId.addEventListener('sharedId:updated', onUpdated);
-  btn.addEventListener('click', accessStorage.bind(null, updateId));
+  btn.addEventListener('click', requestAccess.bind(null, updateId));
 }
 
 function onReady() {
@@ -95,7 +92,8 @@ function onReady() {
     btn.classList.add('pure-button-disabled');
     btn.innerText = 'Storage Access API not supported';
     return;
-  }
+  } 
+  hasAccess();
   attachEventHandlers();
   init();
 }
